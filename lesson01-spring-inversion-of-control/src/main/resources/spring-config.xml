@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="visitingDoctorTicket" class="org.msvdev.ee.config.VisitingDoctorTicket">
+        <property name="doctor" value="терапевт"/>
+        <property name="cabinet" value="254а"/>
+    </bean>
+
+    <bean id="patientMedicalCard" class="org.msvdev.ee.config.MedicalCard">
+        <property name="name" value="Пётр"/>
+        <property name="birthday" value="01.01.2022"/>
+    </bean>
+
+    <bean id="medicalCardArchive" class="org.msvdev.ee.config.MedicalCardArchive">
+        <property name="patientCard">
+            <ref bean="patientMedicalCard" />
+        </property>
+    </bean>
+
+    <bean id="patient" class="org.msvdev.ee.config.Patient">
+        <property name="medicalCard">
+            <ref bean="patientMedicalCard" />
+        </property>
+        <property name="visitingDoctorTicket">
+            <ref bean="visitingDoctorTicket" />
+        </property>
+    </bean>
+
+</beans>
