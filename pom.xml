@@ -9,6 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
+        <module>lesson02-servlet-api</module>
         <module>lesson01-spring-inversion-of-control</module>
     </modules>
 
