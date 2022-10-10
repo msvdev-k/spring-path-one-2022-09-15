@@ -13,6 +13,7 @@
         <module>lesson01-spring-inversion-of-control</module>
         <module>lesson03-spring-mvc</module>
         <module>lesson05-hibernate</module>
+        <module>lesson06-hibernate-path-2</module>
     </modules>
 
     <properties>
