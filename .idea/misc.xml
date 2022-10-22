@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/lesson04-spring-boot/pom.xml" />
         <option value="$PROJECT_DIR$/lesson07-spring-data-jpa/pom.xml" />
+        <option value="$PROJECT_DIR$/lesson08-thymeleaf/pom.xml" />
       </list>
     </option>
   </component>

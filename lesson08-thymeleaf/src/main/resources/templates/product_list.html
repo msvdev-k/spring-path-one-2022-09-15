@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head.html :: head"></head>
+
+<body>
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-12  my-3">
+            <a class="btn btn-primary" th:href="@{/products/new}">Добавить продукт</a>
+        </div>
+    </div>
+
+    <!-- Постраничный вывод   -->
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="...">
+                <ul class="pagination  my-3">
+
+                    <li class="page-item" th:classappend="${!products.hasPrevious()} ? 'disabled'">
+                        <a th:if="${products.hasPrevious()}" class="page-link"
+                           th:href="@{/products( page=${products.getNumber()}, pageSize=${products.getSize()} )}">
+                           Предыдущая
+                        </a>
+                        <span th:unless="${products.hasPrevious()}" class="page-link">Предыдущая</span>
+                    </li>
+
+
+                    <li th:each="num: ${#numbers.sequence(1, products.getTotalPages())}"
+                        th:classappend="${num == products.getNumber() + 1} ? 'active'"
+                        class="page-item">
+
+                        <a th:if="${num != products.getNumber() + 1}" class="page-link"
+                           th:href="@{/products( page=${num}, pageSize=${products.getSize()} )}">
+                            [[${num}]]
+                        </a>
+
+                        <span th:if="${num == products.getNumber() + 1}" class="page-link">[[${num}]]</span>
+                    </li>
+
+
+                    <li class="page-item" th:classappend="${!products.hasNext()} ? 'disabled'">
+                        <a th:if="${products.hasNext()}" class="page-link"
+                           th:href="@{/products( page=${products.getNumber() + 2}, pageSize=${products.getSize()} )}">
+                            Следующая
+                        </a>
+                        <span th:unless="${products.hasNext()}" class="page-link">Следующая</span>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+    <!-- Таблица с товарами -->
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered my-2">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Название продукта</th>
+                        <th scope="col">Стоимость</th>
+                        <th scope="col">Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${products.content}" >
+                        <th th:text="${product.id}" scope="row">id</th>
+                        <td th:text="${product.title}">title</td>
+                        <td th:text="${product.cost}">0</td>
+                        <td>
+                            <a class="btn btn-success" th:href="@{/products/{id}(id = ${product.id})}"><i class="fas fa-edit"></i></a>
+                            <form class="d-inline" th:method="delete" th:action="@{/products/{id}(id = ${product.id})}">
+                                <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+<script th:replace="fragments/footer.html :: scripts"></script>
+
+</body>
+</html>
