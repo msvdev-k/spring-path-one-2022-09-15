@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row py-2">
+
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-bordered my-2">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">ID продукта</th>
+                        <th scope="col">Зарезервированная стоимость</th>
+                        <th scope="col">Зарезервированное количество</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr ng-repeat="item in cartItems" >
+                        <th scope="row">{{item.id}}</th>
+                        <td>{{item.productId}}</td>
+                        <td>{{item.reservedCost}}</td>
+                        <td>{{item.quantity}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
