@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head.html :: head"></head>
+
+
+<body>
+
+<nav th:replace="fragments/head.html :: navbar('users')"></nav>
+
+
+<div class="container">
+    <div class="row py-2">
+        <div class="col-12">
+            <a class="btn btn-primary" th:href="@{/users/new}">Добавить пользователя</a>
+        </div>
+
+
+        <!-- Постраничный вывод -->
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="...">
+                    <ul class="pagination  my-3">
+
+                        <li class="page-item" th:classappend="${!users.hasPrevious()} ? 'disabled'">
+                            <a th:if="${users.hasPrevious()}" class="page-link"
+                               th:href="@{/users( page=${users.getNumber()}, pageSize=${users.getSize()} )}">
+                                Предыдущая
+                            </a>
+                            <span th:unless="${users.hasPrevious()}" class="page-link">Предыдущая</span>
+                        </li>
+
+
+                        <li th:each="num: ${#numbers.sequence(1, users.getTotalPages())}"
+                            th:classappend="${num == users.getNumber() + 1} ? 'active'"
+                            class="page-item">
+
+                            <a th:if="${num != users.getNumber() + 1}" class="page-link"
+                               th:href="@{/users( page=${num}, pageSize=${users.getSize()} )}">
+                                [[${num}]]
+                            </a>
+
+                            <span th:if="${num == users.getNumber() + 1}" class="page-link">[[${num}]]</span>
+                        </li>
+
+
+                        <li class="page-item" th:classappend="${!users.hasNext()} ? 'disabled'">
+                            <a th:if="${users.hasNext()}" class="page-link"
+                               th:href="@{/users( page=${users.getNumber() + 2}, pageSize=${users.getSize()} )}">
+                                Следующая
+                            </a>
+                            <span th:unless="${users.hasNext()}" class="page-link">Следующая</span>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+
+        <!-- Таблица со списком пользователей -->
+        <div class="col-12">
+            <table class="table table-bordered my-2">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Имя пользователя</th>
+                        <th scope="col">Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${users.hasContent()}" th:each="user : ${users.getContent()}">
+                        <th th:text="${user.id}" scope="row">1</th>
+                        <td th:text="${user.username}">Alex</td>
+                        <td>
+                            <a class="btn btn-success" th:href="@{/users/{id}(id = ${user.id})}"><i class="fas fa-edit"></i></a>
+                            <form class="d-inline" th:method="delete" th:action="@{/users/{id}(id = ${user.id})}">
+                                <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    <tr th:unless="${users.hasContent()}">
+                        <td colspan="4">Пользователей не обнаружено</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<th:block th:replace="fragments/footer.html :: scripts"></th:block>
+
+</body>
+</html>

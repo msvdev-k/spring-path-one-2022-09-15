@@ -1,0 +1,57 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<head th:fragment="head">
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
+
+    <title>Каталог товаров</title>
+</head>
+
+
+
+
+<nav th:fragment="navbar (pageName)" class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" th:href="@{/products}">Магазин</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul th:unless="${pageName == 'none'}" class="navbar-nav mr-auto">
+            <li class="nav-item" th:classappend="${pageName == 'products'} ? 'active'">
+                <a class="nav-link" th:href="@{/products}">Список продуктов</a>
+            </li>
+            <li class="nav-item" th:classappend="${pageName == 'users'} ? 'active'">
+                <a class="nav-link" th:href="@{/users}">Список пользователей</a>
+            </li>
+        </ul>
+
+
+        <form sec:authorize="isAuthenticated()"
+              th:action="@{/logout}" th:method="post"
+              class="form-inline my-2 my-lg-0" >
+            <button class="btn btn-outline-success my-2 my-sm-0">
+                Выход <span sec:authentication="principal.username"></span>
+            </button>
+        </form>
+    </div>
+
+
+</nav>
+
+
+
+
+</html>
